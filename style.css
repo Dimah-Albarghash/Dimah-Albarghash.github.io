@@ -150,3 +150,22 @@ body.onepage-body{display:block;background:var(--paper)}
   .onepage-section:not(.contact-section),.home-section{padding-inline:1rem}
   .header-inner,.footer-inner{width:calc(100% - 2rem)}
 }
+
+/* v11: clean Contact section label */
+.contact-section .contact-label{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+  padding:0;
+  background:transparent;
+  border:0;
+  color:#a9c0cf;
+}
+.contact-section .contact-label span{
+  display:inline-block;
+  font-size:1rem;
+  line-height:1;
+  letter-spacing:0;
+  text-transform:none;
+}
