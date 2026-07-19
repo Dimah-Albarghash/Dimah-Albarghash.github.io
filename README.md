@@ -10,3 +10,8 @@ A responsive one-page portfolio website for Dimah Albarghash, a senior Managemen
 - `README.md` — this file
 
 The site is ready for GitHub Pages. Upload these four files to the root of the repository. Google Drive project files should use **Anyone with the link → Viewer**.
+
+
+## Latest refinements
+- Removed the Home item from the navigation; the name logo still returns to the top.
+- Added consistent horizontal breathing room to every section.

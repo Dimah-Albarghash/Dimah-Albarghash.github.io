@@ -106,3 +106,47 @@ body.onepage-body{display:block;background:var(--paper)}
   .volunteering-section .timeline::before{display:none}
   .contact-section{padding-inline:.65rem}
 }
+
+
+/* v8 refinements: spacious hero alignment and simplified contact ending */
+.home-section{
+  width:100%;
+  max-width:none;
+  margin-inline:0;
+  padding-inline:max(2.75rem,calc((100vw - var(--max))/2));
+}
+.home-section .hero-grid-solo{
+  width:100%;
+  max-width:1000px;
+}
+.contact-section .contact-grid{margin-bottom:0}
+
+@media(max-width:900px){
+  .home-section{padding-inline:1.75rem}
+}
+@media(max-width:650px){
+  .home-section{padding-inline:1.1rem}
+}
+
+
+/* v10: consistent breathing room across every one-page section */
+.onepage-section:not(.contact-section){
+  padding-inline:max(2.5rem, calc((100vw - var(--max)) / 2));
+}
+.home-section{
+  width:100%;
+  max-width:none;
+  margin-inline:0;
+  padding-inline:max(2.5rem, calc((100vw - var(--max)) / 2));
+}
+.header-inner,.footer-inner{
+  width:min(calc(100% - 5rem), var(--max));
+}
+@media(max-width:900px){
+  .onepage-section:not(.contact-section),.home-section{padding-inline:1.75rem}
+  .header-inner,.footer-inner{width:calc(100% - 3.5rem)}
+}
+@media(max-width:650px){
+  .onepage-section:not(.contact-section),.home-section{padding-inline:1rem}
+  .header-inner,.footer-inner{width:calc(100% - 2rem)}
+}
