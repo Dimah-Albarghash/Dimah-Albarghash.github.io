@@ -460,3 +460,25 @@ img,video,canvas{max-width:100%;height:auto}
   .hero-orb-a{left:-135px}
   .hero-orb-b{right:-155px}
 }
+
+/* v18: keep the volunteer-hours badge clearly separated from the heading */
+.volunteering-section .inner-title{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.volunteering-section .hours-badge{
+  position:static;
+  display:inline-flex;
+  align-self:flex-end;
+  margin-top:1.35rem;
+  margin-bottom:0;
+  white-space:nowrap;
+}
+@media(max-width:650px){
+  .volunteering-section .hours-badge{
+    align-self:flex-start;
+    margin-top:1rem;
+    white-space:normal;
+  }
+}
