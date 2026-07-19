@@ -169,3 +169,294 @@ body.onepage-body{display:block;background:var(--paper)}
   letter-spacing:0;
   text-transform:none;
 }
+
+
+/* v14: emoji edition refinements and robust mobile viewport lock */
+
+/* Keep the Contact navigation label white in every state. */
+.site-nav .nav-contact,
+.site-nav .nav-contact:hover,
+.site-nav .nav-contact:focus-visible,
+.site-nav .nav-contact.active-link{
+  color:#fff;
+}
+
+/* Decorative contact stars intentionally removed. */
+.contact-stars{display:none!important}
+
+/* Prevent any component from widening the page beyond the viewport. */
+html,
+body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  overscroll-behavior-x:none;
+  touch-action:pan-y pinch-zoom;
+}
+
+.page-main,
+.site-header,
+.site-footer,
+.onepage-section,
+.page-shell,
+.header-inner,
+.footer-inner,
+.hero-grid,
+.hero-copy,
+.hero-labels,
+.inner-title,
+.about-layout,
+.education-showcase,
+.project-grid,
+.cert-grid,
+.skill-section,
+.skill-tile-grid,
+.timeline,
+.timeline-item,
+.timeline-card,
+.role-grid,
+.contact-grid{
+  min-width:0;
+  max-width:100%;
+}
+
+.onepage-section{overflow-x:hidden}
+
+.micro-label,
+.availability,
+.project-card h2,
+.project-copy,
+.project-tags li,
+.cert-card h2,
+.timeline-card,
+.timeline-card h2,
+.role-grid,
+.role-grid>div,
+.degree-card h2,
+.focus-tags span,
+.skill-tile strong,
+.contact-card strong{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+.project-card,
+.cert-card,
+.degree-card,
+.academic-focus,
+.skill-section,
+.skill-tile,
+.timeline-card,
+.role-grid>div,
+.contact-card{
+  min-width:0;
+  max-width:100%;
+}
+
+.project-tags,
+.project-actions,
+.hero-actions,
+.focus-words{
+  max-width:100%;
+}
+
+@supports (overflow:clip){
+  html,
+  body,
+  .page-main,
+  .onepage-section{
+    overflow-x:clip;
+  }
+}
+
+@media(max-width:650px){
+  .page-shell,
+  .onepage-section,
+  .home-section,
+  .contact-section{
+    width:100%;
+    max-width:100%;
+    margin-inline:0;
+  }
+
+  .onepage-section:not(.contact-section),
+  .home-section,
+  .contact-section{
+    padding-left:1rem;
+    padding-right:1rem;
+  }
+
+  .header-inner,
+  .footer-inner{
+    width:calc(100% - 2rem);
+    max-width:calc(100% - 2rem);
+  }
+
+  .hero-labels{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    width:100%;
+  }
+
+  .micro-label,
+  .graduation-label{
+    width:100%;
+    max-width:100%;
+    white-space:normal;
+  }
+
+  .display-name,
+  .display-name .name-text{
+    max-width:100%;
+  }
+
+  .availability{flex-wrap:wrap}
+
+  .project-card,
+  .cert-card,
+  .degree-card,
+  .academic-focus,
+  .skill-section,
+  .timeline-card,
+  .contact-card{
+    width:100%;
+  }
+
+  .project-tags li{white-space:normal}
+  .hero-orb-a{left:-130px}
+  .hero-orb-b{right:-150px}
+}
+
+/* v17 — restored emoji edition with iPhone-safe mobile layout */
+html{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+  position:relative;
+}
+@supports (overflow:clip){
+  html,body,.page-main,.onepage-section{overflow-x:clip}
+}
+.page-main,.site-header,.site-footer,.onepage-section,.page-shell,
+.header-inner,.footer-inner,.hero-grid,.hero-copy,.hero-labels,.inner-title,
+.about-layout,.education-showcase,.project-grid,.cert-grid,.skill-section,
+.skill-tile-grid,.timeline,.timeline-item,.timeline-side,.timeline-card,
+.role-grid,.contact-grid,.project-card,.cert-card,.degree-card,.academic-focus,
+.contact-card,.skill-tile{
+  min-width:0;
+  max-width:100%;
+}
+.onepage-section{overflow:hidden}
+img,video,canvas{max-width:100%;height:auto}
+.project-card h2,.cert-card h2,.timeline-card h2,.timeline-card>span,
+.role-grid strong,.role-grid p,.degree-card h2,.skill-tile strong,.contact-card strong{
+  overflow-wrap:break-word;
+  word-break:normal;
+  hyphens:none;
+}
+.site-nav .nav-contact,
+.site-nav .nav-contact:hover,
+.site-nav .nav-contact:focus-visible,
+.site-nav .nav-contact.active-link{color:#fff!important}
+.contact-stars{display:none!important}
+
+@media (max-width:1024px){
+  .volunteering-section .timeline{
+    display:flex;
+    flex-direction:column;
+    gap:1.1rem;
+    width:100%;
+  }
+  .volunteering-section .timeline::before{display:none!important}
+  .volunteering-section .timeline-item{
+    display:flex!important;
+    flex-direction:column!important;
+    grid-template-columns:none!important;
+    width:100%;
+    gap:.8rem;
+  }
+  .volunteering-section .timeline-side{
+    display:flex!important;
+    align-items:center;
+    flex-wrap:wrap;
+    width:100%;
+    gap:.8rem;
+  }
+  .volunteering-section .timeline-marker{
+    width:46px;
+    height:46px;
+    flex:0 0 46px;
+  }
+  .volunteering-section .timeline-side time,
+  .volunteering-section .years-badge{
+    width:auto;
+    max-width:calc(100% - 58px);
+    white-space:normal;
+  }
+  .volunteering-section .timeline-card{
+    display:block;
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:1.25rem;
+  }
+  .volunteering-section .role-grid{
+    grid-template-columns:1fr;
+    width:100%;
+  }
+}
+
+@media (max-width:650px){
+  .onepage-section:not(.contact-section),
+  .home-section,
+  .contact-section{
+    width:100%;
+    max-width:100%;
+    margin-inline:0;
+    padding-left:max(1rem,env(safe-area-inset-left));
+    padding-right:max(1rem,env(safe-area-inset-right));
+  }
+  .header-inner,.footer-inner{
+    width:auto;
+    max-width:none;
+    margin-left:max(1rem,env(safe-area-inset-left));
+    margin-right:max(1rem,env(safe-area-inset-right));
+  }
+  .hero-labels{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    width:100%;
+  }
+  .micro-label,.graduation-label{
+    width:100%;
+    max-width:100%;
+    white-space:normal;
+  }
+  .display-name,.display-name .name-text{max-width:100%}
+  .availability,.hero-actions,.project-actions,.project-tags,.focus-words{max-width:100%;flex-wrap:wrap}
+  .project-card,.cert-card,.degree-card,.academic-focus,.skill-section,
+  .skill-tile,.timeline-card,.contact-card{width:100%;max-width:100%}
+  .volunteering-section .timeline-side time,
+  .volunteering-section .years-badge{
+    font-size:.72rem;
+    line-height:1.35;
+    letter-spacing:.035em;
+  }
+  .volunteering-section .timeline-card h2{
+    font-size:clamp(1.45rem,7.5vw,2rem);
+  }
+  .volunteering-section .timeline-card>span{
+    font-size:.96rem;
+    line-height:1.7;
+  }
+  .site-nav{max-width:100vw}
+  .hero-orb-a{left:-135px}
+  .hero-orb-b{right:-155px}
+}

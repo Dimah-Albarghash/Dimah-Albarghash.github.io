@@ -18,3 +18,11 @@ The site is ready for GitHub Pages. Upload these four files to the root of the r
 
 
 Latest update: replaced the decorative Contact dashes with a small phone emoji for a cleaner section label.
+
+
+## Latest refinements
+- Emoji-based design retained.
+- Technical Skills toolbox emoji replaced with a laptop.
+- Contact navigation text remains white in all scroll states.
+- Decorative contact stars removed.
+- Mobile horizontal overflow prevented while pinch zoom remains available.
