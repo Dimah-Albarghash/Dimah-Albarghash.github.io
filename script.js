@@ -1,171 +1,83 @@
-/* =========================================================
-   Dimah Albarghash — Portfolio
-   script.js
-
-   All editable links live in the portfolioLinks object below.
-   Update the LinkedIn URL and any project links here — nothing
-   else in this file needs to change when you do.
-   ========================================================= */
-
 const portfolioLinks = {
   email: "mailto:dimahalbarghash@gmail.com",
   phone: "tel:+966540939105",
-  linkedin: "https://www.linkedin.com/in/dimah-albarghash-587035330/",
-
-  projects: {
-    bpm: "https://drive.google.com/file/d/1BKBQOTHNAY8_CHvKKdnuyzvly50h97U-/view?usp=share_link",
-    ownBakery: "https://drive.google.com/file/d/1KGCBSqz93QB4b1gUlFi2EIq8U-iud7eZ/view?usp=share_link",
-    hirak: "https://drive.google.com/file/d/1uXujJ9HGB14qwPJ5scUjE_9EfHPzLkF5/view?usp=share_link",
-    hirakWebsite: "https://vr-motion-mimic.lovable.app",
-    steam: "https://drive.google.com/file/d/1ruWsE0Xj97GPAgSw6F1E9NKfAFM5gbnl/view?usp=share_link",
-    pureRay: "https://drive.google.com/file/d/1a8fyGaWwsZmsxpB0CthmD2psuZIQH2OI/view?usp=share_link",
-    pureRayWebsite: "https://pure-ray.lovable.app",
-    unemployment: "https://drive.google.com/file/d/1ZzBRHUojHg2FmkEqYoPYECKUqopB03-u/view?usp=share_link",
-    peakGym: "https://drive.google.com/file/d/1QjiIhf0Dx5eCm6Owwuj82NYpWOUztzg1/view?usp=share_link",
-    erpNext: "https://drive.google.com/file/d/1nNJ8Tcy3_ufv10EJCpEDgqieKGUllYjN/view?usp=share_link",
-  },
+  linkedin: "https://www.linkedin.com/in/dimah-albarghash-587035330/"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  assignLinks();
   setupMobileNav();
-  setupActiveNavHighlighting();
-  setupFooterYear();
+  setupSmoothNavigation();
+  setupActiveNavigation();
+  setupCursor();
+  setupNameInteraction();
+  setupInteractiveCards();
+  setupMagneticButtons();
+  setupReveal();
+  setupHeaderState();
+  const year = document.getElementById("footerYear");
+  if (year) year.textContent = new Date().getFullYear();
 });
 
-/**
- * Reads every element with a data-link attribute and points it at the
- * matching URL in portfolioLinks (top-level keys or nested under
- * portfolioLinks.projects).
- */
-function assignLinks() {
-  const linkElements = document.querySelectorAll("[data-link]");
-
-  linkElements.forEach((el) => {
-    const key = el.getAttribute("data-link");
-    const url = portfolioLinks[key] || portfolioLinks.projects[key];
-
-    if (!url) return;
-
-    el.setAttribute("href", url);
-
-    // Keep the visible LinkedIn label concise while using the full profile URL.
-    if (key === "linkedin") {
-      el.textContent = "View LinkedIn Profile";
-    }
-  });
+function setupMobileNav(){
+  const toggle=document.getElementById("navToggle"),nav=document.getElementById("primaryNav");
+  if(!toggle||!nav)return;
+  const close=()=>{nav.classList.remove("is-open");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open navigation menu")};
+  toggle.addEventListener("click",()=>{const open=nav.classList.toggle("is-open");toggle.setAttribute("aria-expanded",String(open));toggle.setAttribute("aria-label",open?"Close navigation menu":"Open navigation menu")});
+  nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",close));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+  addEventListener("resize",()=>{if(innerWidth>900)close()});
 }
 
-/**
- * Wires up the accessible hamburger menu: toggling open/closed,
- * closing on link click, closing on Escape, and keeping
- * aria-expanded in sync.
- */
-function setupMobileNav() {
-  const toggle = document.getElementById("navToggle");
-  const nav = document.getElementById("primaryNav");
-
-  if (!toggle || !nav) return;
-
-  const closeMenu = () => {
-    nav.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Open navigation menu");
-  };
-
-  const openMenu = () => {
-    nav.classList.add("is-open");
-    toggle.setAttribute("aria-expanded", "true");
-    toggle.setAttribute("aria-label", "Close navigation menu");
-  };
-
-  toggle.addEventListener("click", () => {
-    const isOpen = nav.classList.contains("is-open");
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  });
-
-  nav.querySelectorAll("a[data-nav-link]").forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && nav.classList.contains("is-open")) {
-      closeMenu();
-      toggle.focus();
-    }
-  });
-
-  // If the viewport grows past the mobile breakpoint while the
-  // menu is open, reset its state so it doesn't stay "stuck".
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 900) {
-      closeMenu();
-    }
-  });
+function setupSmoothNavigation(){
+  document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener("click",e=>{
+    const id=link.getAttribute("href");
+    if(!id||id==="#")return;
+    const target=document.querySelector(id);
+    if(!target)return;
+    e.preventDefault();
+    target.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+    history.replaceState(null,"",id);
+  }));
 }
 
-/**
- * Highlights the nav link matching the section currently in view.
- */
-function setupActiveNavHighlighting() {
-  const navLinks = document.querySelectorAll("a[data-nav-link]");
-  if (!navLinks.length) return;
-
-  const sectionIds = Array.from(navLinks).map((link) =>
-    link.getAttribute("href").replace("#", "")
-  );
-
-  const sections = sectionIds
-    .map((id) => document.getElementById(id))
-    .filter(Boolean);
-
-  if (!sections.length || !("IntersectionObserver" in window)) return;
-
-  const setActive = (id) => {
-    navLinks.forEach((link) => {
-      const isMatch = link.getAttribute("href") === `#${id}`;
-      link.classList.toggle("active-link", isMatch);
-      if (isMatch) {
-        link.setAttribute("aria-current", "true");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  };
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-      if (visible.length > 0) {
-        setActive(visible[0].target.id);
-      }
-    },
-    {
-      rootMargin: "-45% 0px -45% 0px",
-      threshold: [0, 0.25, 0.5, 0.75, 1],
-    }
-  );
-
-  sections.forEach((section) => observer.observe(section));
+function setupActiveNavigation(){
+  const links=[...document.querySelectorAll('.site-nav a[href^="#"]')];
+  const sections=links.map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  if(!sections.length)return;
+  const setActive=id=>links.forEach(a=>a.classList.toggle("active-link",a.getAttribute("href")==="#"+id));
+  const io=new IntersectionObserver(entries=>{
+    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(visible)setActive(visible.target.id);
+  },{rootMargin:"-30% 0px -55% 0px",threshold:[0,.15,.35,.6]});
+  sections.forEach(s=>io.observe(s));
 }
 
-/**
- * Keeps the footer year current without hardcoding it, while the
- * markup still contains a static fallback year for no-JS visitors.
- */
-function setupFooterYear() {
-  const yearEl = document.getElementById("footerYear");
-  if (!yearEl) return;
-
-  const currentYear = String(new Date().getFullYear());
-  if (yearEl.textContent !== currentYear) {
-    yearEl.textContent = currentYear;
-  }
+function setupHeaderState(){
+  const header=document.getElementById("siteHeader");
+  if(!header)return;
+  const update=()=>header.classList.toggle("is-scrolled",scrollY>12);
+  update();addEventListener("scroll",update,{passive:true});
+}
+function setupCursor(){
+  if(!matchMedia("(pointer: fine)").matches)return;
+  let raf;addEventListener("pointermove",e=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{document.documentElement.style.setProperty("--mx",`${e.clientX}px`);document.documentElement.style.setProperty("--my",`${e.clientY}px`)})},{passive:true});
+}
+function setupNameInteraction(){
+  const name=document.querySelector(".display-name");if(!name||!matchMedia("(pointer: fine)").matches)return;
+  name.addEventListener("pointermove",e=>{const r=name.getBoundingClientRect();name.style.setProperty("--name-x",`${Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100))}%`);name.style.setProperty("--name-y",`${Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100))}%`)});
+  name.addEventListener("pointerleave",()=>{name.style.setProperty("--name-x","50%");name.style.setProperty("--name-y","50%")});
+}
+function setupInteractiveCards(){
+  document.querySelectorAll(".interactive-card").forEach(card=>{
+    card.addEventListener("pointermove",e=>{const r=card.getBoundingClientRect();card.style.setProperty("--card-x",`${e.clientX-r.left}px`);card.style.setProperty("--card-y",`${e.clientY-r.top}px`);if(!matchMedia("(pointer: fine)").matches||matchMedia("(prefers-reduced-motion: reduce)").matches)return;const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(1000px) rotateX(${-y*3}deg) rotateY(${x*3.5}deg) translateY(-4px)`});
+    card.addEventListener("pointerleave",()=>{card.style.transform=""});
+  });
+}
+function setupMagneticButtons(){
+  if(!matchMedia("(pointer: fine)").matches)return;
+  document.querySelectorAll(".magnetic").forEach(btn=>{btn.addEventListener("pointermove",e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.1}px,${(e.clientY-r.top-r.height/2)*.14}px)`});btn.addEventListener("pointerleave",()=>btn.style.transform="")});
+}
+function setupReveal(){
+  const items=document.querySelectorAll(".reveal");if(matchMedia("(prefers-reduced-motion: reduce)").matches){items.forEach(i=>i.classList.add("is-visible"));return}
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("is-visible");io.unobserve(e.target)}}),{threshold:.1});items.forEach(i=>io.observe(i));
 }
