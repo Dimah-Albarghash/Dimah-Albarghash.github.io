@@ -482,3 +482,20 @@ img,video,canvas{max-width:100%;height:auto}
     white-space:normal;
   }
 }
+
+
+/* Education heading: one complete word per line */
+.education-section .degree-card h2{
+  max-width:none;
+  font-size:clamp(3rem,5.2vw,5.35rem);
+  letter-spacing:-.055em;
+}
+.education-section .degree-card h2 .degree-line{
+  display:block;
+  white-space:nowrap;
+}
+@media(max-width:650px){
+  .education-section .degree-card h2{
+    font-size:clamp(2.35rem,11.5vw,3.45rem);
+  }
+}
